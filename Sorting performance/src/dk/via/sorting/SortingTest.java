@@ -19,17 +19,12 @@ public class SortingTest {
 		}
 	}
 	
-	private static long[] generateSorted(int n) {
+	private static long[] generateRandomArray(int n) {
+		Random random = new Random();
 		long[] numbers = new long[n];
 		for(int i = 0; i < n; i++) {
-			numbers[i] = i + 1;
+			numbers[i] = random.nextLong();
 		}
-		return numbers;
-	}
-	
-	private static long[] generateShuffled(int n) {
-		long[] numbers = generateSorted(n);
-		shuffleRandomly(numbers);
 		return numbers;
 	}
 	
@@ -161,45 +156,30 @@ public class SortingTest {
 		System.out.print("n = ");
 		int n = keyboard.nextInt();
 		keyboard.close();
-		long[] test = generateShuffled(n);
+		long[] test = generateRandomArray(n);
 		
 		long[] numbers = test.clone();
 		System.out.print("Bubble sort\t\t\t\t");
 		long t = timeBubbleSort(numbers);
 		System.out.println(t);
-		System.out.print("Bubble sort (sorted)\t\t\t");
-		t = timeBubbleSort(numbers);
-		System.out.println(t);
-		
+
 		numbers = test.clone();
 		System.out.print("Insertion sort\t\t\t\t");
 		t = timeInsertionSort(numbers);
 		System.out.println(t);
-		System.out.print("Insertion sort (sorted)\t\t\t");
-		t = timeInsertionSort(numbers);
-		System.out.println(t);
-		
+
 		numbers = test.clone();
 		System.out.print("Selection sort\t\t\t\t");
 		t = timeSelectionSort(numbers);
 		System.out.println(t);
-		System.out.print("Selection sort (sorted)\t\t\t");
-		t = timeSelectionSort(numbers);
-		System.out.println(t);
-		
+
 		numbers = test.clone();
 		System.out.print("Quick sort\t\t\t\t");
 		t = timeQuickSort(numbers);
 		System.out.println(t);
-		System.out.print("Quick sort (sorted)\t\t\t");
-		t = timeQuickSort(numbers);
-		System.out.println(t);
-		
+
 		numbers = test.clone();
 		System.out.print("Quick sort (Sherwood version)\t\t");
-		t = timeQuickSortSherwood(numbers);
-		System.out.println(t);
-		System.out.print("Quick sort (Sherwood version, sorted)\t");
 		t = timeQuickSortSherwood(numbers);
 		System.out.println(t);
 
@@ -207,13 +187,35 @@ public class SortingTest {
 		System.out.print("Merge sort\t\t\t\t");
 		t = timeMergeSort(numbers);
 		System.out.println(t);
-		System.out.print("Merge sort (sorted)\t\t\t");
-		t = timeMergeSort(numbers);
-		System.out.println(t);
 		
 		numbers = test.clone();
 		System.out.print("\"I'm feeling lucky\" sort\t\t");
 		t = timeImFeelingLuckySort(numbers);
 		System.out.println(t);
-	}
+
+		System.out.print("Bubble sort (sorted)\t\t\t");
+		t = timeBubbleSort(numbers);
+		System.out.println(t);
+		
+		System.out.print("Insertion sort (sorted)\t\t\t");
+		t = timeInsertionSort(numbers);
+		System.out.println(t);
+		
+		System.out.println();
+		System.out.print("Selection sort (sorted)\t\t\t");
+		t = timeSelectionSort(numbers);
+		System.out.println(t);
+		
+		System.out.print("Quick sort (sorted)\t\t\t");
+		t = timeQuickSort(numbers);
+		System.out.println(t);
+		
+		System.out.print("Quick sort (Sherwood version, sorted)\t");
+		t = timeQuickSortSherwood(numbers);
+		System.out.println(t);
+
+		System.out.print("Merge sort (sorted)\t\t\t");
+		t = timeMergeSort(numbers);
+		System.out.println(t);
+}
 }
