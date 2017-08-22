@@ -150,15 +150,6 @@ public class SortingTest {
 		return System.currentTimeMillis() - startTime;
 	}
 	
-	private static void println(long[] numbers) {
-		System.out.print("[");
-		for(int i = 0; i < numbers.length; i++) {
-			if (i > 0) System.out.print(", ");
-			System.out.print(numbers[i]);
-		}
-		System.out.println("]");
-	}
-	
 	private static long timeImFeelingLuckySort(long[] numbers) {
 		long startTime = System.currentTimeMillis();
 		while(!isSorted(numbers)) shuffleRandomly(numbers);
