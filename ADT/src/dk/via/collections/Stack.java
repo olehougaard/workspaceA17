@@ -5,3 +5,4 @@ public interface Stack<T> {
 	T pop();
 	boolean isEmpty();
 }
+
