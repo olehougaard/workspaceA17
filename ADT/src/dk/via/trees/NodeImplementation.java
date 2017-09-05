@@ -29,24 +29,4 @@ public class NodeImplementation<T> implements Node<T> {
 	public Node<T> getRight() {
 		return right;
 	}
-	
-	@Override
-	public String toString() {
-		String s = "";
-		if (left != null) {
-			s += left.toString() + ", ";
-		}
-		s += value;
-		if (right != null) {
-			s += ", " + right.toString();
-		}
-		return s;
-	}
-
-	public static void main(String[] args) {
-		Node<Integer> minusNine = new NodeImplementation<>(-9, null, null);
-		Node<Integer> four = new NodeImplementation<>(4, null, null);
-		Node<Integer> two = new NodeImplementation<Integer>(2, minusNine, four);
-		System.out.println(two);
-	}
 }
