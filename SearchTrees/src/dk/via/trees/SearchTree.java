@@ -1,53 +1,13 @@
 package dk.via.trees;
 
-public class SearchTree<T extends Comparable<T>> {
-	private Node<T> tree;
+public interface SearchTree<T extends Comparable<T>> {
 
-	public SearchTree() {
-		this.tree = null;
-	}
+	int size();
 
-	public T find(T x) {
-		Node<T> currentNode = tree;
-		while (currentNode != null) {
-			if (x.compareTo(currentNode.getValue()) == 0) {
-				return currentNode.getValue();
-			} else if (x.compareTo(currentNode.getValue()) < 0) {
-				currentNode = currentNode.getLeft();
-			} else {
-				currentNode = currentNode.getRight();
-			}
-		}
-		return null;
-	}
+	T find(T x);
 
-	public void add(T x) {
-		if (tree == null) {
-			tree = new Node<T>(x);
-		} else {
-			Node<T> previousNode;
-			Node<T> currentNode = tree;
-			do {
-				if (x.compareTo(currentNode.getValue()) == 0) {
-					return;
-				} else {
-					previousNode = currentNode;
-					if (x.compareTo(currentNode.getValue()) < 0) {
-						currentNode = currentNode.getLeft();
-					} else {
-						currentNode = currentNode.getRight();
-					}
-				}
-			} while (currentNode != null);
-			if (x.compareTo(previousNode.getValue()) < 0) {
-				previousNode.setLeft(new Node<T>(x));
-			} else {
-				previousNode.setRight(new Node<T>(x));
-			}
-		}
-	}
-	
-	private Node<T> addRecursively(Node<T> n, T x) {
-		return new Node<>(x);
-	}
+	void add(T x);
+
+	void remove(T x);
+
 }
