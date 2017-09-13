@@ -16,8 +16,18 @@ public class IterativeSearchTree<T extends Comparable<T>> implements SearchTree<
 	
 	@Override
 	public T find(T x) {
-		// Left as an exercise
-		return null;
+		Node<T> current = tree;
+		while(current != null && current.getValue().compareTo(x) != 0) {
+			if (x.compareTo(current.getValue()) < 0) {
+				current = current.getLeft();
+			} else {
+				current = current.getRight();
+			}
+		}
+		if (current == null)
+			return null;
+		else
+			return current.getValue();
 	}
 
 	@Override

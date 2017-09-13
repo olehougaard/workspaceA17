@@ -15,8 +15,15 @@ public class RecursiveSearchTree<T extends Comparable<T>> implements SearchTree<
 	}
 
 	private T find(Node<T> n, T x) {
-		// Left as an exercise
-		return null;
+		if (n == null) {
+			return null;
+		} else if (x.compareTo(n.getValue()) == 0) {
+			return n.getValue();
+		} else if (x.compareTo(n.getValue()) < 0) {
+			return find(n.getLeft(), x);
+		} else {
+			return find(n.getRight(), x);
+		}
 	}
 
 	private Node<T> add(Node<T> n, T x) {

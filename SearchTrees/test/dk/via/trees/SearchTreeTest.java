@@ -20,7 +20,7 @@ public class SearchTreeTest {
 	}
 	
 	private SearchTree<Integer> createTree() {
-		return new IterativeSearchTree<>();
+		return new RecursiveSearchTree<>();
 	}
 	
 	@Test
