@@ -14,17 +14,7 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 		return size;
 	}
 	
-	private boolean checkHeight(Node<T> n) {
-		if (n == null) return true;
-		if (!checkHeight(n.getLeft()) || !checkHeight(n.getRight())) return false;
-		return height(n) == 1 + Math.max(height(n.getLeft()), height(n.getRight()));
-	}
-	
 	// For white-box testing of balance
-	boolean checkHeight() {
-		return checkHeight(tree);
-	}
-	
 	private int height(Node<T> n) {
 		if (n == null)
 			return -1;
@@ -32,6 +22,21 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 			return n.getHeight();
 	}
 	
+	private boolean checkHeight(Node<T> n) {
+		if (n == null) return true;
+		if (!checkHeight(n.getLeft()) || !checkHeight(n.getRight())) return false;
+		return height(n) == 1 + Math.max(height(n.getLeft()), height(n.getRight()));
+	}
+	
+	boolean checkHeight() {
+		return checkHeight(tree);
+	}
+	
+	int getHeight() {
+		return height(tree);
+	}
+
+	// Recursive methods
 	private void updateHeight(Node<T> n) {
 		n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
 	}
@@ -49,34 +54,27 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 	}
 
 	private Node<T> add(Node<T> n, T x) {
-		assert checkHeight();
 		if (x == null) 
 			throw new IllegalArgumentException("Attempt to insert null in the tree");
 		if (n == null) {
 			size++;
 			return new Node<T>(x);
 		} else if (x.compareTo(n.getValue()) == 0) {
-			assert checkHeight();
 			return n;
 		} else if (x.compareTo(n.getValue()) < 0) {
 			Node<T> left = add(n.getLeft(), x);
-			assert checkHeight(left);
 			n.setLeft(left);
 			updateHeight(n);
-			assert checkHeight(n);
-			return (n);
+			return rebalance(n);
 		} else {
 			Node<T> right = add(n.getRight(), x);
-			assert checkHeight(right);
 			n.setRight(right);
 			updateHeight(n);
-			assert checkHeight(n);
-			return (n);
+			return rebalance(n);
 		}
 	}
 
 	public Node<T> remove(Node<T> n, T x) {
-		assert checkHeight();
 		if (n == null)
 			return n;
 		else if (x.compareTo(n.getValue()) < 0) { 
@@ -98,21 +96,17 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 				n = replacement;
 			}
 		}
-		assert checkHeight(n);
 		return rebalance(n);
 	}
 	
 	private Node<T> replacement(Node<T> n) {
-		assert checkHeight();
 		if (n.getLeft() == null) {
-			assert checkHeight();
 			return n;
 		} else {
 			Node<T> replacement = replacement(n.getLeft());
 			if (n.getLeft() == replacement) 
 				n.setLeft(replacement.getRight());
 			updateHeight(n);
-			assert checkHeight(replacement);
 			return replacement;
 		}
 	}
@@ -136,14 +130,12 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 	private Node<T> rotateRight(Node<T> n) {
 		Node<T> l = n.getLeft();
 		if (l == null) {
-			assert checkHeight();
 			return n;
 		} else {
 			n.setLeft(l.getRight());
 			l.setRight(n);
 			updateHeight(n);
 			updateHeight(l);
-			assert checkHeight(l);
 			return l;
 		}
 	}
@@ -152,14 +144,12 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 	private Node<T> rotateLeft(Node<T> n) {
 		Node<T> r = n.getRight();
 		if (r == null) {
-			assert checkHeight();
 			return n;
 		} else {
 			n.setRight(r.getLeft());
 			r.setLeft(n);
 			updateHeight(n);
 			updateHeight(r);
-			assert checkHeight(r);
 			return r;
 		}
 	}
@@ -195,12 +185,7 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 			else 
 				return rotateLeftRight(n);
 		} else {
-			assert checkHeight(n);
 			return n;
 		}
-	}
-
-	double getHeight() {
-		return height(tree);
 	}
 }

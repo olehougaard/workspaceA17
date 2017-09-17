@@ -1,8 +1,12 @@
 package dk.via.trees;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -145,14 +149,26 @@ public class SearchTreeTest {
 		}
 	}
 	
+	private static Map<Integer, Integer> fibs = new HashMap<>();
+	static {
+		fibs.put(1, 1);
+		fibs.put(2, 1);
+	}
+	private static int f(int n){
+		if (!fibs.containsKey(n)) {
+			fibs.put(n, f(n-1) + f(n-2));
+		}
+		return fibs.get(n);
+	} 
+	
 	@Test
-	public void treeIsBalanceThroughInsertion() throws Exception {
+	public void treeIsBalancedThroughInsertion() throws Exception {
 		for(int i = 0; i < 10; i++) {
 			AVLTree<Integer> tree = createTree();
 			Set<Integer> testData = randomTestData();
 			for(Integer element: testData) {
 				tree.add(element);
-				assertTrue(tree.size() >= Math.pow(2, tree.getHeight()-1));
+				assertTrue(tree.size() >= f(tree.getHeight()+2) - 1);
 			}
 		}
 	}
