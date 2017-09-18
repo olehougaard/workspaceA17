@@ -36,11 +36,6 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 		return height(tree);
 	}
 
-	// Recursive methods
-	private void updateHeight(Node<T> n) {
-		n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
-	}
-	
 	private T find(Node<T> n, T x) {
 		if (n == null) {
 			return null;
@@ -64,12 +59,12 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 		} else if (x.compareTo(n.getValue()) < 0) {
 			Node<T> left = add(n.getLeft(), x);
 			n.setLeft(left);
-			updateHeight(n);
+			n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
 			return rebalance(n);
 		} else {
 			Node<T> right = add(n.getRight(), x);
 			n.setRight(right);
-			updateHeight(n);
+			n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
 			return rebalance(n);
 		}
 	}
@@ -79,10 +74,10 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 			return n;
 		else if (x.compareTo(n.getValue()) < 0) { 
 			n.setLeft(remove(n.getLeft(), x));
-			updateHeight(n);
+			n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
 		} else if (x.compareTo(n.getValue()) > 0) { 
 			n.setRight(remove(n.getRight(), x));
-			updateHeight(n);
+			n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
 		} else {
 			size--;
 			if (n.getRight() == null) {
@@ -92,7 +87,7 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 				replacement.setLeft(n.getLeft());
 				if (replacement != n.getRight()) 
 					replacement.setRight(n.getRight());
-				updateHeight(replacement);
+				replacement.setHeight(1 + Math.max(height(replacement.getLeft()), height(replacement.getRight())));
 				n = replacement;
 			}
 		}
@@ -106,7 +101,7 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 			Node<T> replacement = replacement(n.getLeft());
 			if (n.getLeft() == replacement) 
 				n.setLeft(replacement.getRight());
-			updateHeight(n);
+			n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
 			return replacement;
 		}
 	}
@@ -134,8 +129,8 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 		} else {
 			n.setLeft(l.getRight());
 			l.setRight(n);
-			updateHeight(n);
-			updateHeight(l);
+			n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
+			l.setHeight(1 + Math.max(height(l.getLeft()), height(l.getRight())));
 			return l;
 		}
 	}
@@ -148,8 +143,8 @@ public class AVLTree<T extends Comparable<T>> implements SearchTree<T> {
 		} else {
 			n.setRight(r.getLeft());
 			r.setLeft(n);
-			updateHeight(n);
-			updateHeight(r);
+			n.setHeight(1 + Math.max(height(n.getLeft()), height(n.getRight())));
+			r.setHeight(1 + Math.max(height(r.getLeft()), height(r.getRight())));
 			return r;
 		}
 	}
