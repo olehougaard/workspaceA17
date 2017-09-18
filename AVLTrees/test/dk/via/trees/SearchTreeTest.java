@@ -168,7 +168,22 @@ public class SearchTreeTest {
 			Set<Integer> testData = randomTestData();
 			for(Integer element: testData) {
 				tree.add(element);
-				assertTrue(tree.size() >= f(tree.getHeight()+2) - 1);
+				assertTrue(tree.size() >= f(tree.getHeight() + 2) - 1);
+			}
+		}
+	}
+	
+	@Test
+	public void treeIsBalancedThroughRemoval() throws Exception {
+		for(int i = 0; i < 10; i++) {
+			AVLTree<Integer> tree = createTree();
+			Set<Integer> testData = randomTestData();
+			for(Integer element: testData) {
+				tree.add(element);
+			}
+			for(Integer element: testData) {
+				tree.remove(element);
+				assertTrue(tree.size() >= f(tree.getHeight() + 2) - 1);
 			}
 		}
 	}
