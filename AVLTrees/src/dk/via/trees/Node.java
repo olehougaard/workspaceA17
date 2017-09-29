@@ -4,16 +4,18 @@ class Node<T> {
 	private T value;
 	private Node<T> left;
 	private Node<T> right;
+	private int weight;
 	private int height;
 
-	public Node(T value, Node<T> left, Node<T> right, int height) {
+	public Node(T value, Node<T> left, Node<T> right, int height, int weight) {
 		this.value = value;
 		this.left = left;
 		this.right = right;
+		this.weight = weight;
 	}
 	
 	public Node(T value) {
-		this(value, null, null, 0);
+		this(value, null, null, 0, 1);
 	}
 
 	public int getHeight() {
@@ -46,5 +48,13 @@ class Node<T> {
 
 	public void setRight(Node<T> right) {
 		this.right = right;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 }
