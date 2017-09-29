@@ -16,7 +16,7 @@ public class Heap<T extends Comparable<T>> implements PriorityQueue<T> {
 	}
 
 	private T get(int index) {
-		if (index >= elements.length)
+		if (index >= size)
 			return null;
 		else
 			return elements[index];
@@ -88,6 +88,8 @@ public class Heap<T extends Comparable<T>> implements PriorityQueue<T> {
 
 	@Override
 	public void add(T x) {
+		if (x == null) 
+			throw new NullPointerException();
 		size++;
 		set(size - 1, x);
 		rise(size - 1);
@@ -95,6 +97,8 @@ public class Heap<T extends Comparable<T>> implements PriorityQueue<T> {
 
 	@Override
 	public T removeMin() {
+		if (size == 0) 
+			return null;
 		T min = get(0);
 		set(0, get(size - 1));
 		size--;
