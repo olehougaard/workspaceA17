@@ -12,22 +12,19 @@ public class QueenPositions {
 		positions = new int[size];
 	}
 	
-	public boolean hasNext() {
-		for(int i = 0; i < positions.length; i++) {
-			if (positions[i] < size - 1)
-				return true;
-		}
-		return false;
+	public boolean hasMore() {
+		return positions[0] < size - 1;
 	}
 	
 	public void next() {
 		int i = positions.length - 1;
-		while(i >= 0 && positions[i] == size - 1)
+		while(i > 0 && positions[i] == size - 1)
 			i--;
-		if (i >= 0) {
-			positions[i++]++;
-			while(i < positions.length)
-				positions[i++] = 0;
+		positions[i]++;
+		i++;
+		while(i < positions.length) {
+			positions[i] = 0;
+			i++;
 		}
 	}
 	

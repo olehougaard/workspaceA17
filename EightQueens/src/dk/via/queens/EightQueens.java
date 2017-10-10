@@ -18,7 +18,7 @@ public class EightQueens {
 	
 	private static String eightQueens(int size) {
 		QueenPositions p = new QueenPositions(size);
-		while(p.hasNext()) {
+		while(p.hasMore()) {
 			if (!hasCollisions(p)) return p.toString();
 			p.next();
 		}
@@ -26,6 +26,6 @@ public class EightQueens {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(eightQueens(11));
+		System.out.println(eightQueens(4));
 	}
 }

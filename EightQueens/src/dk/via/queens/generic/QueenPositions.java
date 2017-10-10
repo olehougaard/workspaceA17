@@ -47,12 +47,8 @@ public class QueenPositions implements SolutionSpace {
 	 * @see dk.via.queens.generic.SolutionSpace#hasNext()
 	 */
 	@Override
-	public boolean hasNext() {
-		for(int i = 0; i < positions.length; i++) {
-			if (positions[i] < rows - 1)
-				return true;
-		}
-		return false;
+	public boolean hasMore() {
+		return size > 0 && positions[size-1] < rows;
 	}
 	
 	/* (non-Javadoc)
@@ -60,14 +56,7 @@ public class QueenPositions implements SolutionSpace {
 	 */
 	@Override
 	public void next() {
-		int i = positions.length - 1;
-		while(i >= 0 && positions[i] == rows - 1)
-			i--;
-		if (i >= 0) {
-			positions[i++]++;
-			while(i < positions.length)
-				positions[i++] = 0;
-		}
+		positions[size-1]++;
 	}
 	
 	/* (non-Javadoc)

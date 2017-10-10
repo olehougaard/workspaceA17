@@ -25,7 +25,7 @@ public class EightQueens {
 		if (hasCollisions(p)) return null;
 		if (p.getSize() == targetSize) return p;
 		QueenPositions ext = p.extend();
-		while(ext.hasNext()) {
+		while(ext.hasMore()) {
 			QueenPositions solution = queens(ext, targetSize);
 			if (solution != null) 
 				return solution;
@@ -35,6 +35,6 @@ public class EightQueens {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(eightQueens(11));
+		System.out.println(eightQueens(12));
 	}
 }

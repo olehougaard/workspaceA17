@@ -6,7 +6,7 @@ public interface SolutionSpace {
 
 	boolean accept();
 
-	boolean hasNext();
+	boolean hasMore();
 
 	void next();
 
