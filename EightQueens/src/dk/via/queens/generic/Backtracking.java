@@ -8,7 +8,7 @@ public class Backtracking {
 		if (p.reject()) return null;
 		if (p.accept()) return p;
 		SolutionSpace ext = p.extend();
-		while(ext.hasNext()) {
+		while(ext.hasMore()) {
 			SolutionSpace solution = findSolution(ext);
 			if (solution != null) 
 				return solution;
@@ -17,20 +17,24 @@ public class Backtracking {
 		return null;
 	}
 	
-	public static List<SolutionSpace> findAllSolutions(SolutionSpace p) {
-		ArrayList<SolutionSpace> solutions = new ArrayList<>();
-		if (p.reject()) return solutions;
+	private static void findAllSolutions(ArrayList<SolutionSpace> solutions, SolutionSpace p) {
+		if (p.reject()) return;
 		if (p.accept()) solutions.add(p.copy());
 		SolutionSpace ext = p.extend();
-		while(ext.hasNext()) {
-			solutions.addAll(findAllSolutions(ext));
+		while(ext.hasMore()) {
+			findAllSolutions(solutions, ext);
 			ext.next();
 		}
+	}
+	
+	public static List<SolutionSpace> findAllSolutions(SolutionSpace p) {
+		ArrayList<SolutionSpace> solutions = new ArrayList<>();
+		findAllSolutions(solutions, p);
 		return solutions;
 	}
 	
 	public static void main(String[] args) {
-		SolutionSpace p = new QueenPositions(8);
+		SolutionSpace p = new QueenPositions(12);
 		System.out.println(findAllSolutions(p));
 	}
 }
