@@ -1,4 +1,4 @@
-package dk.via.moneychaning;
+package dk.via.moneychanging;
 
 import java.util.Arrays;
 import java.util.HashMap;

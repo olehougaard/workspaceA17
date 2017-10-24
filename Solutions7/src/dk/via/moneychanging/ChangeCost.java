@@ -3,30 +3,26 @@ package dk.via.moneychanging;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import dk.via.backtracking.SolutionSpace;
+import dk.via.backtracking.CostSolutionSpace;
 
-public class ChangeSolution implements SolutionSpace<ChangeSolution> {
-	int best;
+
+public class ChangeCost implements CostSolutionSpace<ChangeCost> {
 	private int[] coins;
 	private int[] payOuts;
 	private int amount;
 	private int index;
-	private ChangeSolution root;
 
 
-	public ChangeSolution(int[] coins, int amount) {
+	public ChangeCost(int[] coins, int amount) {
 		this.coins = Arrays.copyOf(coins, coins.length);
 		Arrays.sort(this.coins);
 		this.payOuts = new int[coins.length];
 		this.amount = amount;
-		this.best = amount + 1;
 		this.index = -1;
-		this.root = this;
 	}
 
-	private ChangeSolution(int[] coins, int[] payOuts, int amount, ChangeSolution root) {
+	private ChangeCost(int[] coins, int[] payOuts, int amount) {
 		this.coins = coins;
-		this.root = root;
 		this.payOuts = Arrays.copyOf(payOuts, payOuts.length);
 		this.amount = amount;
 		this.index = coins.length - 1;
@@ -34,19 +30,12 @@ public class ChangeSolution implements SolutionSpace<ChangeSolution> {
 
 	@Override
 	public boolean reject() {
-		return amount < 0 || size() >= root.best;
+		return amount < 0;
 	}
 
 	@Override
 	public boolean accept() {
-		if (amount == 0) {
-			if (size() < root.best) {
-				root.best = size();
-			}
-			return true;
-		} else {
-			return false;
-		}
+		return amount == 0;
 	}
 
 	@Override
@@ -66,16 +55,25 @@ public class ChangeSolution implements SolutionSpace<ChangeSolution> {
 	}
 
 	@Override
-	public ChangeSolution extend() {
-		ChangeSolution ext = new ChangeSolution(coins, payOuts, amount, root);
+	public ChangeCost extend() {
+		ChangeCost ext = new ChangeCost(coins, payOuts, amount);
 		ext.amount -= coins[ext.index];
 		ext.payOuts[ext.index]++;
 		return ext;
 	}
 
 	@Override
-	public ChangeSolution copy() {
-		return new ChangeSolution(coins, payOuts, amount, root);
+	public ChangeCost copy() {
+		return new ChangeCost(coins, payOuts, amount);
+	}
+	
+	@Override
+	public double cost() {
+		int cost = 0;
+		for(int payOut: payOuts) {
+			cost += payOut;
+		}
+		return cost;
 	}
 	
 	public int size() {

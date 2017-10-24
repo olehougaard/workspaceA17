@@ -1,4 +1,4 @@
-package dk.via.moneychaning;
+package dk.via.moneychanging;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +26,17 @@ public class BacktrackChanger {
 		return bestSolution == null ? null : bestSolution.change();
 	}
 	
+	public HashMap<Integer,Integer> changeWithPruning(int amount) {
+		ChangeCost root = new ChangeCost(coins, amount);
+		ChangeCost bestSolution = Backtracking.findBestSolution(root);
+		if (bestSolution == null)
+			return null;
+		else
+			return bestSolution.change();
+	}
+	
 	public static void main(String[] args) {
 		BacktrackChanger DKK = new BacktrackChanger(new int[]{ 33, 20, 11, 10, 5, 2, 1});
-		System.out.println(DKK.change(1051));
+		System.out.println(DKK.changeWithPruning(1051));
 	}
 }

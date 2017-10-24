@@ -33,4 +33,23 @@ public class Backtracking {
 		findAllSolutions(solutions, p);
 		return solutions;
 	}
+	private static <T extends CostSolutionSpace<T>> double cost(T p) {
+		return (p == null) ? Double.POSITIVE_INFINITY : p.cost();
+	}
+	
+	private static <T extends CostSolutionSpace<T>> void findBestSolution(T[] best, T p) {
+		if (p.reject() || p.cost() >= cost(best[0])) return;
+		if (p.accept() && p.cost() < cost(best[0])) best[0] = p.copy();
+		T ext = p.extend();
+		while(ext.hasMore()) {
+			findBestSolution(best, ext);
+			ext.next();
+		}
+	}
+
+	public static <T extends CostSolutionSpace<T>> T findBestSolution(T p) {
+		T[] best = (T[]) new CostSolutionSpace<?>[1];
+		findBestSolution(best, p);
+		return best[0];
+	}
 }
