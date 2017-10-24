@@ -16,16 +16,16 @@ public class EightQueens {
 		return false;
 	}
 	
-	private static String eightQueens(int size) {
+	private static QueenPositions eightQueens(int size) {
 		QueenPositions p = new QueenPositions(size);
 		while(p.hasMore()) {
-			if (!hasCollisions(p)) return p.toString();
+			if (!hasCollisions(p)) return p;
 			p.next();
 		}
 		return null;
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(eightQueens(4));
+		System.out.println(eightQueens(11));
 	}
 }

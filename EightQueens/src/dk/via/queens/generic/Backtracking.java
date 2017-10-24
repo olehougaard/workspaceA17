@@ -34,7 +34,7 @@ public class Backtracking {
 	}
 	
 	public static void main(String[] args) {
-		SolutionSpace p = new QueenPositions(12);
+		SolutionSpace p = new QueenPositions(13);
 		System.out.println(findAllSolutions(p));
 	}
 }

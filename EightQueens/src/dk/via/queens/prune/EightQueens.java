@@ -35,6 +35,6 @@ public class EightQueens {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(eightQueens(12));
+		System.out.println(eightQueens(20));
 	}
 }
