@@ -37,6 +37,6 @@ public class BacktrackChanger {
 	
 	public static void main(String[] args) {
 		BacktrackChanger DKK = new BacktrackChanger(new int[]{ 33, 20, 11, 10, 5, 2, 1});
-		System.out.println(DKK.changeWithPruning(1051));
+		System.out.println(DKK.changeWithPruning(40));
 	}
 }
