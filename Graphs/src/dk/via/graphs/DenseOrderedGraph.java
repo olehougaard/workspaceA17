@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DenseOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
+public class DenseOrderedGraph implements Graph {
 	public static class Edge implements Graph.Edge {
 		private int from, to;
 
@@ -32,14 +32,11 @@ public class DenseOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
 	}
 	
 	private int size;
-	private NodeInfo[] info;
 	private boolean[][] edges;
 	private int edgeCount;
 	
-	@SuppressWarnings("unchecked")
 	public DenseOrderedGraph(int size) {
 		this.size = size;
-		this.info = (NodeInfo[]) new Object[size];
 		this.edges = new boolean[size][size];
 		this.edgeCount = 0;
 	}
@@ -59,16 +56,6 @@ public class DenseOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
 		return (char)('A' + i);
 	}
 
-	@Override
-	public NodeInfo getInfo(int i) {
-		return info[i];
-	}
-	
-	@Override
-	public void setInfo(int i, NodeInfo info) {
-		this.info[i] = info;
-	}
-	
 	public void addEdge(int i, int j) {
 		edges[i][j] = true;
 	}

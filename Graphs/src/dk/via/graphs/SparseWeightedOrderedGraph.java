@@ -3,7 +3,7 @@ package dk.via.graphs;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SparseWeightedOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
+public class SparseWeightedOrderedGraph implements Graph {
 	public static class Edge implements WeightedGraph.Edge {
 		private int from, to;
 		private double weight;
@@ -37,14 +37,12 @@ public class SparseWeightedOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
 	}
 	
 	private int size;
-	private NodeInfo[] info;
 	private List<Edge>[] edges;
 	private int edgeCount;
 	
 	@SuppressWarnings("unchecked")
 	public SparseWeightedOrderedGraph(int size) {
 		this.size = size;
-		this.info = (NodeInfo[]) new Object[size];
 		this.edges = new List[size];
 		for(int i = 0; i < edges.length; i++) {
 			edges[i] = new LinkedList<>();
@@ -67,16 +65,6 @@ public class SparseWeightedOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
 		return (char)('A' + i);
 	}
 
-	@Override
-	public NodeInfo getInfo(int i) {
-		return info[i];
-	}
-	
-	@Override
-	public void setInfo(int i, NodeInfo info) {
-		this.info[i] = info;
-	}
-	
 	public void addEdge(int i, int j, double weight) {
 		edges[i].add(new Edge(i, j, weight));
 	}

@@ -3,7 +3,7 @@ package dk.via.graphs;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SparseOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
+public class SparseOrderedGraph implements Graph {
 	public static class Edge implements Graph.Edge {
 		private int from, to;
 
@@ -31,14 +31,12 @@ public class SparseOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
 	}
 	
 	private int size;
-	private NodeInfo[] info;
 	private List<Edge>[] edges;
 	private int edgeCount;
 	
 	@SuppressWarnings("unchecked")
 	public SparseOrderedGraph(int size) {
 		this.size = size;
-		this.info = (NodeInfo[]) new Object[size];
 		this.edges = new List[size];
 		for(int i = 0; i < edges.length; i++) {
 			edges[i] = new LinkedList<>();
@@ -61,16 +59,6 @@ public class SparseOrderedGraph<NodeInfo> implements Graph<NodeInfo> {
 		return (char)('A' + i);
 	}
 
-	@Override
-	public NodeInfo getInfo(int i) {
-		return info[i];
-	}
-	
-	@Override
-	public void setInfo(int i, NodeInfo info) {
-		this.info[i] = info;
-	}
-	
 	public void addEdge(int i, int j) {
 		edges[i].add(new Edge(i, j));
 	}

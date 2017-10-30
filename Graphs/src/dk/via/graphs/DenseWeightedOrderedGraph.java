@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DenseWeightedOrderedGraph<NodeInfo> implements WeightedGraph<NodeInfo> {
+public class DenseWeightedOrderedGraph implements WeightedGraph {
 	public static class Edge implements WeightedGraph.Edge {
 		private int from, to;
 		private double weight;
@@ -39,14 +39,11 @@ public class DenseWeightedOrderedGraph<NodeInfo> implements WeightedGraph<NodeIn
 	}
 	
 	private int size;
-	private NodeInfo[] info;
 	private double[][] edges;
 	private int edgeCount;
 	
-	@SuppressWarnings("unchecked")
 	public DenseWeightedOrderedGraph(int size) {
 		this.size = size;
-		this.info = (NodeInfo[]) new Object[size];
 		this.edges = new double[size][size];
 		for(int i = 0; i < size; i++)
 			for(int j = 0; j < size; j++)
@@ -69,16 +66,6 @@ public class DenseWeightedOrderedGraph<NodeInfo> implements WeightedGraph<NodeIn
 		return (char)('A' + i);
 	}
 
-	@Override
-	public NodeInfo getInfo(int i) {
-		return info[i];
-	}
-	
-	@Override
-	public void setInfo(int i, NodeInfo info) {
-		this.info[i] = info;
-	}
-	
 	public void addEdge(int i, int j, double weight) {
 		edges[i][j] = weight;
 	}

@@ -2,7 +2,7 @@ package dk.via.graphs;
 
 import java.util.List;
 
-public interface WeightedGraph<NodeInfo> extends Graph<NodeInfo> {
+public interface WeightedGraph extends Graph {
 	interface Edge extends Graph.Edge {
 		double getWeight();
 	}
