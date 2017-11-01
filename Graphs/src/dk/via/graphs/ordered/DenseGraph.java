@@ -1,73 +1,45 @@
-package dk.via.graphs;
+package dk.via.graphs.ordered;
 
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
-public class DenseOrderedGraph implements Graph {
-	public static class Edge implements Graph.Edge {
-		private int from, to;
+import dk.via.graphs.Graph;
 
-		public Edge(int from, int to) {
-			this.from = from;
-			this.to = to;
-		}
-
-		public int getFrom() {
-			return from;
-		}
-
-		public int getTo() {
-			return to;
-		}
-		
-		@Override
-		public boolean equals(Object obj) {
-			if (obj instanceof Edge) {
-				Edge other = (Edge) obj;
-				return from == other.from && to == other.to;
-			}
-			return false;
-		}
-	}
-	
+public class DenseGraph implements Graph {
 	private int size;
 	private boolean[][] edges;
 	private int edgeCount;
 	
-	public DenseOrderedGraph(int size) {
+	// O(V^2)
+	public DenseGraph(int size) {
 		this.size = size;
 		this.edges = new boolean[size][size];
 		this.edgeCount = 0;
 	}
 	
+	// O(1)
 	@Override
 	public int getSize() {
 		return size;
 	}
 
+	// O(1)
 	@Override
 	public int getEdgeCount() {
 		return edgeCount;
 	}
 
+	// O(1)
 	@Override
 	public char getName(int i) {
 		return (char)('A' + i);
 	}
 
+	// O(1)
 	public void addEdge(int i, int j) {
 		edges[i][j] = true;
 	}
 
-	@Override
-	public Edge getEdge(int i, int j) {
-		if (edges[i][j]) 
-			return new Edge(i, j);
-		else
-			return null;
-	}
-	
+	// O(1) to get, but O(V) to run through
 	@Override
 	public Iterable<Integer> getOutgoingNodes(int i) {
 		return new Iterable<Integer>() {
@@ -93,6 +65,8 @@ public class DenseOrderedGraph implements Graph {
 		};
 	}
 
+	
+	// O(1) to get, but O(V) to run through
 	@Override
 	public Iterable<Integer> getIncomingNodes(int j) {
 		return new Iterable<Integer>() {
@@ -116,34 +90,5 @@ public class DenseOrderedGraph implements Graph {
 				};
 			}
 		};
-	}
-
-	@Override
-	public List<Edge> getOutgoingEdges(int i) {
-		LinkedList<Edge> outgoing = new LinkedList<>();
-		for(int j = 0; j < size; j++) {
-			if (edges[i][j])
-				outgoing.add(new Edge(i, j));
-		}
-		return outgoing;
-	}
-
-	@Override
-	public List<Edge> getIncomingEdges(int j) {
-		LinkedList<Edge> outgoing = new LinkedList<>();
-		for(int i = 0; i < size; i++) {
-			if (edges[i][j])
-				outgoing.add(new Edge(i, j));
-		}
-		return outgoing;
-	}
-
-	@Override
-	public List<Edge> getEdges() {
-		List<Edge> allEdges = new LinkedList<>();
-		for(int i = 0; i < size; i++) {
-			allEdges.addAll(getOutgoingEdges(i));
-		}
-		return allEdges;
 	}
 }
