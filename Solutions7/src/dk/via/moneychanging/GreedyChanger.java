@@ -31,7 +31,7 @@ public class GreedyChanger {
 	}
 	
 	public static void main(String[] args) {
-		GreedyChanger DKK = new GreedyChanger(new int[]{ 20, 10, 5, 2, 1});
-		System.out.println(DKK.change(51));
+		GreedyChanger DKK = new GreedyChanger(new int[]{ 33, 20, 11, 10, 5, 2, 1});
+		System.out.println(DKK.change(1051));
 	}
 }
