@@ -1,27 +1,23 @@
 package dk.via.combinatorics;
 
+import java.math.BigInteger;
+
 public class HandCount {
-	public static long combination(long[][] cache, int m, int n) {
-		if (cache[m][n] > 0) return cache[m][n];
-		cache[m][n] = combination(cache, m, n - 1) + combination(cache, m - 1, n - 1);
+	public static BigInteger combination(BigInteger[][] cache, int m, int n) {
+		if (cache[m][n] != null) return cache[m][n];
+		cache[m][n] = combination(cache, m, n - 1).add(combination(cache, m - 1, n - 1));
 		return cache[m][n];
 	}
 	
-	public static long dyn_combination(int m, int n) {
-		long[][] cache = new long[m + 1][n + 1];
+	public static BigInteger dyn_combination(int m, int n) {
+		BigInteger[][] cache = new BigInteger[m + 1][n + 1];
 		for(int i = 0; i <= n; i++) {
-			cache[0][i] = 1;
+			cache[0][i] = BigInteger.ONE;
 		}
 		for(int i = 0; i <= m; i++) {
-			cache[i][i] = 1;
+			cache[i][i] = BigInteger.ONE;
 		}
-		long combination = combination(cache, m, n);
-		for(int i = 0; i <= m; i ++) {
-			for(int j = 0; j <= n; j++) {
-				System.out.print(cache[i][j] + "\t");
-			}
-			System.out.println();
-		}
+		BigInteger combination = combination(cache, m, n);
 		return combination;
 	}
 	
@@ -31,6 +27,6 @@ public class HandCount {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(dyn_combination(13, 52));
+		System.out.println(dyn_combination(13, 52 - 13).doubleValue() / dyn_combination(13, 52).doubleValue());
 	}
 }

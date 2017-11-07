@@ -1,6 +1,6 @@
-package dk.via.graphs.unordered;
+package dk.via.graphs.undirected;
 
-public class SparseGraph extends dk.via.graphs.ordered.SparseGraph {
+public class SparseGraph extends dk.via.graphs.directed.SparseGraph {
 	public SparseGraph(int size) {
 		super(size);
 	}

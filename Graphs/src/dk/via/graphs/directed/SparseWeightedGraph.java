@@ -1,4 +1,4 @@
-package dk.via.graphs.ordered;
+package dk.via.graphs.directed;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,6 +45,11 @@ public class SparseWeightedGraph implements WeightedGraph {
 		edges[i].add(new WeightedEdge(i, j, weight));
 	}
 
+	// O(1)
+	public void addEdge(WeightedEdge e) {
+		addEdge(e.getFrom(), e.getTo(), e.getWeight());
+	}
+
 	// O(|outgoing(i)|)
 	@Override
 	public double getWeight(int i, int j) {
@@ -86,5 +91,10 @@ public class SparseWeightedGraph implements WeightedGraph {
 			allEdges.addAll(outgoing);
 		}
 		return allEdges;
+	}
+	
+	@Override
+	public String toString() {
+		return asString();
 	}
 }

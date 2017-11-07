@@ -1,4 +1,4 @@
-package dk.via.graphs.ordered;
+package dk.via.graphs.directed;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -77,5 +77,10 @@ public class SparseGraph implements Graph {
 			allEdges.addAll(outgoing);
 		}
 		return allEdges;
+	}
+	
+	@Override
+	public String toString() {
+		return asString();
 	}
 }

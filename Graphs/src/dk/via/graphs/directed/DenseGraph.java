@@ -1,4 +1,4 @@
-package dk.via.graphs.ordered;
+package dk.via.graphs.directed;
 
 import java.util.Iterator;
 
@@ -53,7 +53,7 @@ public class DenseGraph implements Graph {
 						wind();
 					}
 					public Integer next() {
-						int next = j;
+						int next = j++;
 						wind();
 						return next;
 					}
@@ -90,5 +90,10 @@ public class DenseGraph implements Graph {
 				};
 			}
 		};
+	}
+	
+	@Override
+	public String toString() {
+		return asString();
 	}
 }

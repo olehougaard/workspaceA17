@@ -1,6 +1,6 @@
-package dk.via.graphs.unordered;
+package dk.via.graphs.undirected;
 
-public class DenseWeightedGraph extends dk.via.graphs.ordered.DenseWeightedGraph {
+public class DenseWeightedGraph extends dk.via.graphs.directed.DenseWeightedGraph {
 	public DenseWeightedGraph(int size) {
 		super(size);
 	}

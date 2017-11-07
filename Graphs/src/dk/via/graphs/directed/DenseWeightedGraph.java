@@ -1,4 +1,4 @@
-package dk.via.graphs.ordered;
+package dk.via.graphs.directed;
 
 import java.util.Iterator;
 
@@ -98,5 +98,10 @@ public class DenseWeightedGraph implements WeightedGraph {
 				};
 			}
 		};
+	}
+	
+	@Override
+	public String toString() {
+		return asString();
 	}
 }

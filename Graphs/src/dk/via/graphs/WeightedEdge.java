@@ -1,6 +1,6 @@
 package dk.via.graphs;
 
-public class WeightedEdge extends UnweightedEdge {
+public class WeightedEdge extends UnweightedEdge implements Comparable<WeightedEdge> {
 	private double weight;
 
 	public WeightedEdge(int from, int to, double weight) {
@@ -19,5 +19,10 @@ public class WeightedEdge extends UnweightedEdge {
 			return super.equals(other) && weight == other.weight;
 		}
 		return false;
+	}
+
+	@Override
+	public int compareTo(WeightedEdge o) {
+		return Double.compare(weight, o.weight);
 	}
 }
